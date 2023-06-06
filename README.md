@@ -3,13 +3,13 @@
   simple x window manager
 </p>
 
-Toy X-Window Manager to understand the X protocol. Still a work in progress and currently, far from being
-usable.
+
+Toy X-Window Manager to understand the X protocol.
 
 ## Installation
 #### Ubuntu/Debian
 ```
-TODO
+sudo apt-get install libx11-dev
 ```
 
 #### Arch Linux
