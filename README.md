@@ -30,10 +30,12 @@ Please follow the instructions in the contributions guide at [CONTRIBUTING.md](C
 
 ## Thanks
 - [dwm](https://dwm.suckless.org/tutorial/)
-- [herbstluftwm](https://github.com/herbstluftwm/herbstluftwm)
 - [sowm](https://github.com/dylanaraps/sowm)
+- [aphelia](https://github.com/vardy/aphelia)
+- [devoidwm](https://github.com/murtaza-u/devoidwm)
 
 ## Documentation
+- [X New Developer's Guide](https://x.org/wiki/guide/concepts/)
 - [X Window System](https://x.org/releases/current/doc/libX11/libX11/libX11.html#Overview_of_the_X_Window_System)
 - [X11 Protocol](https://x.org/releases/current/doc/xproto/x11protocol.html#Protocol_Formats)
 
