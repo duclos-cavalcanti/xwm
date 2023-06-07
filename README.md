@@ -3,10 +3,9 @@
   simple x window manager
 </p>
 
+![X-Protocol](.github/assets/xwm.png)
 
 Toy X-Window Manager to understand the X protocol.
-
-![X-Protocol](.github/assets/xwm.png)
 
 ## Installation
 ```
