@@ -7,14 +7,20 @@
 Toy X-Window Manager to understand the X protocol.
 
 ## Installation
+```
+TODO
+```
+
+## Development
+
 #### Ubuntu/Debian
 ```
-sudo apt-get install libx11-dev
+sudo apt-get install build-essential cmake libx11-dev xterm
 ```
 
 #### Arch Linux
 ```
-sudo pacman -S libx11
+sudo pacman -S base-devel cmake libx11 xterm
 ```
 
 ## Usage
@@ -29,10 +35,9 @@ This project is released under the GNU General Public License 3.0. See [LICENSE]
 Please follow the instructions in the contributions guide at [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Thanks
-- [dwm](https://dwm.suckless.org/tutorial/)
 - [sowm](https://github.com/dylanaraps/sowm)
 - [aphelia](https://github.com/vardy/aphelia)
-- [devoidwm](https://github.com/murtaza-u/devoidwm)
+- [dwm](https://dwm.suckless.org/tutorial/)
 
 ## Documentation
 - [X New Developer's Guide](https://x.org/wiki/guide/concepts/)
