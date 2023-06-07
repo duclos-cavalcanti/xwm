@@ -6,7 +6,7 @@
 
 Toy X-Window Manager to understand the X protocol.
 
-![X-Protocol](..github/assets/xwm.png)
+![X-Protocol](.github/assets/xwm.png)
 
 ## Installation
 ```
