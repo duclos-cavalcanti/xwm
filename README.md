@@ -15,12 +15,12 @@ TODO
 
 #### Ubuntu/Debian
 ```
-sudo apt-get install build-essential cmake libx11-dev xterm
+sudo apt-get install build-essential cmake libx11-dev xserver-xephyr xinit x11-apps xterm
 ```
 
 #### Arch Linux
 ```
-sudo pacman -S base-devel cmake libx11 xterm
+sudo pacman -S base-devel cmake libx11 xorg-server-xephyr xorg-xinit xorg-xclock xorg-xeyes xterm
 ```
 
 ## Usage
