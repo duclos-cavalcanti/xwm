@@ -53,9 +53,13 @@ add_custom_target("debug"
     COMMAND gdb -tui bin/${PROJECT_NAME}
 )
 
+
+execute_process(XEPHYR whereis Xephyr | cut -d ' ' -f2)
+message(Xephyr: ${XEPHYR})
 add_custom_target("run"
     COMMENT "Running Program"
     DEPENDS ${PROJECT_NAME}
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-    COMMAND ./run.sh
+    COMMAND DISPLAY= ;1
+    COMMAND xinit  ./xinitrc -- ${XEPHYR} :100 -ac -screen 800x600 -host-cursor
 )
