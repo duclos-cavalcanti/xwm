@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.4 FATAL_ERROR)
-project(rwm)
+project(xwm)
 
 include(cmake/XEPHYR.cmake)
 
@@ -38,6 +38,8 @@ set(PROJECT_INCLUDES
 )
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
+target_link_libraries(${PROJECT_NAME} "X11")
+
 
 set_property(DIRECTORY PROPERTY ADDITIONAL_CLEAN_FILES
     "${PROJECT_SOURCE_DIR}/build/CMakeFiles"
@@ -45,7 +47,7 @@ set_property(DIRECTORY PROPERTY ADDITIONAL_CLEAN_FILES
     "${PROJECT_SOURCE_DIR}/build/Makefile"
     "${PROJECT_SOURCE_DIR}/build/cmake_install.cmake"
     "${PROJECT_SOURCE_DIR}/build/lib"
-    # "${PROJECT_SOURCE_DIR}/build/compile_commands.json"
+    "${PROJECT_SOURCE_DIR}/build/compile_commands.json"
 )
 
 add_custom_target("debug"
