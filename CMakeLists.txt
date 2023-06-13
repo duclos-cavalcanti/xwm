@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.4 FATAL_ERROR)
 project(rwm)
 
+include(cmake/XEPHYR.cmake)
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -54,12 +56,15 @@ add_custom_target("debug"
 )
 
 
-execute_process(XEPHYR whereis Xephyr | cut -d ' ' -f2)
-message(Xephyr: ${XEPHYR})
-add_custom_target("run"
-    COMMENT "Running Program"
-    DEPENDS ${PROJECT_NAME}
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-    COMMAND DISPLAY= ;1
-    COMMAND xinit  ./xinitrc -- ${XEPHYR} :100 -ac -screen 800x600 -host-cursor
-)
+Find_Xephyr()
+if(${XEPHYR_FOUND})
+    add_custom_target("run"
+        COMMENT "Running Program"
+        DEPENDS ${PROJECT_NAME}
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+        COMMAND DISPLAY=:1
+        COMMAND xinit  ./xinitrc -- Xephyr :100 -ac -screen 800x600 -host-cursor
+    )
+else()
+    message("Xephyr is not found and must be installed to run the wm!")
+endif()
