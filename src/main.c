@@ -6,17 +6,12 @@
 #include "wm.h"
 #include "utils.h"
 
-static window_manager_t* wm = { 0 };
-static void (*handler[LASTEvent]) (XEvent *) = {
-	[CreateNotify] = create_notify,
-	[ConfigureRequest] = configure_request,
-	[ConfigureNotify] = configure_notify,
-}; // Many thanks. https://git.suckless.org/dwm
-
 #define MAX_ERROR_TEXT_LENGTH 1024
-int xerror(Display* d, XErrorEvent* e) {
-    char err[MAX_ERROR_TEXT_LENGTH] = { 0 };
 
+static window_manager_t* wm = { 0 };
+static char err[MAX_ERROR_TEXT_LENGTH] = { 0 };
+
+int xerror(Display* d, XErrorEvent* e) {
     XGetErrorText(d, e->error_code, err, sizeof(err));
     printf("Received X Error:\n"
            "\tRequest: %d\n"
@@ -37,6 +32,7 @@ int start() {
         return EXIT_FAILURE;
     }
 
+    wm->screen      = DefaultScreen(wm->dpy);
     wm->root        = DefaultRootWindow(wm->dpy);
     wm->width       = XDisplayWidth(wm->dpy, DefaultScreen(wm->dpy));
     wm->height      = XDisplayHeight(wm->dpy, DefaultScreen(wm->dpy));
@@ -51,8 +47,19 @@ int run() {
     while(1 && wm->running) {
         XEvent e;
         XNextEvent(wm->dpy, &e);
-        if (handler(e))
-            handler(e);
+        switch (e.type){
+            case CreateNotify:
+                create_notify(wm, &e);
+                break;
+
+            case ConfigureRequest:
+                configure_request(wm, &e);
+                break;
+
+            default: 
+                break;
+
+        }
     }
 
     return EXIT_SUCCESS;

@@ -14,6 +14,7 @@ typedef struct client {
 typedef struct window_manager {
     Display* dpy;
     Window* root;
+    int screen;
     int width, height;
     bool running;
 } window_manager_t;
