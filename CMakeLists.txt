@@ -66,5 +66,5 @@ if(${XEPHYR_FOUND})
         COMMAND xinit  ./xinitrc -- Xephyr :100 -ac -screen 800x600 -host-cursor
     )
 else()
-    message("Xephyr is not found and must be installed to run the wm!")
+    message(FATAL ERROR "Xephyr/Xephyr-Server is not found and must be installed to run the wm!")
 endif()
