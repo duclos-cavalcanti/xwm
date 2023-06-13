@@ -4,29 +4,14 @@
 
 #include "main.h"
 #include "wm.h"
-#include "util.h"
+#include "utils.h"
 
 static window_manager_t* wm = { 0 };
-
-static int wm_handler(Display* d, XErrorEvent* e) {
-    if (e->error_code == BadAccess) {
-        wm->wm_fouund = true;
-    }
-    return 0;
-}
-
-int detect_wm(window_manager_t* wm) {
-    XSetErrorHandler(&wm_handler);
-    XSelectInput(wm->dpy,
-                 wm->root->win,
-                 SubstructureRedirectMask |
-                 SubstructureNotifyMask);
-    XSync(wm->dpy, false);
-
-    if (wm->wm_found) return 1;
-    return 0;
-}
-
+static void (*handler[LASTEvent]) (XEvent *) = {
+	[CreateNotify] = create_notify,
+	[ConfigureRequest] = configure_request,
+	[ConfigureNotify] = configure_notify,
+}; // Many thanks. https://git.suckless.org/dwm
 
 #define MAX_ERROR_TEXT_LENGTH 1024
 int xerror(Display* d, XErrorEvent* e) {
@@ -47,29 +32,27 @@ int xerror(Display* d, XErrorEvent* e) {
 
 
 int start() {
-    wm->dpy = XOpenDisplay(NULL);
-    if (!wm->dpy) {
+    if (! ( wm->dpy = XOpenDisplay(NULL) ) ) {
         fprintf(stderr, "Failed to open XDisplay.\n");
         return EXIT_FAILURE;
     }
 
     wm->root        = DefaultRootWindow(wm->dpy);
-    wm->clients     = new_list();
     wm->width       = XDisplayWidth(wm->dpy, DefaultScreen(wm->dpy));
     wm->height      = XDisplayHeight(wm->dpy, DefaultScreen(wm->dpy));
     wm->running     = true;
-    wm->wm_found    = false;
+
     return 0;
 }
 
-void run() {
-    if (detect_wm(wm)) return EXIT_FAILURE;
+int run() {
     XSetErrorHandler(&xerror);
 
     while(1 && wm->running) {
         XEvent e;
         XNextEvent(wm->dpy, &e);
-        process_event(wm, &e);
+        if (handler(e))
+            handler(e);
     }
 
     return EXIT_SUCCESS;
@@ -83,5 +66,6 @@ int main(int argc, char* argv[]) {
     start();
     run();
     close();
+
     return 0;
 }

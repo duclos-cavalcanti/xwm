@@ -3,6 +3,8 @@
 
 #include "main.h"
 
-int process_event(window_manager_t* wm, XEvent* e);
+void create_notify(window_manager_t* wm, XEvent* e);
+void configure_request(window_manager_t* wm, XEvent* e);
+void configure_notify(window_manager_t* wm, XEvent* e);
 
 #endif /* __WM__H */

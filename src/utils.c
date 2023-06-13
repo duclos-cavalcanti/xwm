@@ -1,9 +1,8 @@
-#include "ui.h"
-#include "config.h"
+#include "utils.h"
 
-int frame_window(window_manager_t* wm, window_t* w) {
+int frame_window(window_manager_t* wm, Window* w) {
     XWindowAttributes xattr;
-    XGetWindowAttributes(wm->dpy, w->win, &xattr);
+    XGetWindowAttributes(wm->dpy, w, &xattr);
 
     Window fr = XCreateSimpleWindow(wm->dpy, wm->root->win, xattr.x,
                                                             xattr.y,
@@ -14,10 +13,10 @@ int frame_window(window_manager_t* wm, window_t* w) {
                                                             config_def.bg_color);
 
     XSelectInput(wm->dpy, fr, SubstructureRedirectMask | SubstructureNotifyMask);
-    XAddToSaveSet(wm->dpy, w->win);
-    XReparentWindow(wm->dpy, w->win, fr, 0, 0);
+    XAddToSaveSet(wm->dpy, w);
+    XReparentWindow(wm->dpy, w, fr, 0, 0);
     XMapWindow(wm->dpy, fr);
-    XGrabButton(wm->dpy, Button1, Mod1Mask, w->win, false,
+    XGrabButton(wm->dpy, Button1, Mod1Mask, w, false,
                 ButtonPressMask | ButtonReleaseMask | ButtonMotionMask,
                 GrabModeAsync, GrabModeAsync, None, None);
 
