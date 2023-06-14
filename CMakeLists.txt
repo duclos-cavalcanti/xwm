@@ -3,6 +3,9 @@ project(xwm)
 
 include(cmake/XEPHYR.cmake)
 
+find_xephyr()
+find_library(CHECK_LIBRARY NAMES check)
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -68,8 +71,24 @@ add_custom_target("uninstall"
     COMMAND rm -f /usr/local/bin/${PROJECT_NAME}
 )
 
-Find_Xephyr()
+if (CHECK_LIBRARY)
+    message(STATUS "Check executable found")
+    include_directories(${CHECK_INCLUDE_DIRS})
+    link_directories(${CHECK_LIBRARY_DIRS})
+    add_executable(test_${PROJECT_NAME} ${PROJECT_SOURCES})
+    target_link_libraries(test_${PROJECT_NAME} "X11" ${CHECK_LIBRARY})
+
+    add_custom_target(test
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/bin/TestRunner
+        DEPENDS test_${PROJECT_NAME}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin
+    )
+else()
+    message(FATAL_ERROR "Check library not found. Please install Check.")
+endif()
+
 if(${XEPHYR_FOUND})
+    message(STATUS "Xephyr executable found")
     add_custom_target("run"
         COMMENT "Running Program"
         DEPENDS ${PROJECT_NAME}
@@ -78,5 +97,5 @@ if(${XEPHYR_FOUND})
         COMMAND xinit  ./xinitrc -- Xephyr :100 -ac -screen 800x600 -host-cursor
     )
 else()
-    message(FATAL ERROR "Xephyr/Xephyr-Server is not installed and is needed to test the wm!")
+    message(FATAL ERROR "Xephyr/Xephyr-Server not found. Please install Xephyr.")
 endif()
