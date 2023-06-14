@@ -37,14 +37,14 @@ Please follow the instructions in the contributions guide at [CONTRIBUTING.md](C
 
 ## Thanks
 - [sowm](https://github.com/dylanaraps/sowm)
-- [aphelia](https://github.com/vardy/aphelia)
 - [dwm](https://dwm.suckless.org/tutorial/)
+- [aphelia](https://github.com/vardy/aphelia)
 
 ## Documentation
 - [X New Developer's Guide](https://x.org/wiki/guide/concepts/)
 - [X Window System](https://x.org/releases/current/doc/libX11/libX11/libX11.html#Overview_of_the_X_Window_System)
 - [X11 Protocol](https://x.org/releases/current/doc/xproto/x11protocol.html#Protocol_Formats)
-- [xcb](https://xcb.freedesktop.org/tutorial/)
+- [XCB](https://xcb.freedesktop.org/tutorial/)
 
 ## Donations
 I have a ko-fi and a buy-me-a-coffee account, so if you found this repo useful and would like to show your appreciation, feel free to do so!
