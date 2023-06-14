@@ -17,8 +17,17 @@ in a minimal and configurable manner. Projected features are:
 - [ ] Status-bar
 
 ## Installation
+#### Ubuntu/Debian
 ```sh
 sudo apt-get install build-essential cmake
+cd build 
+cmake .. 
+make install
+```
+
+#### Arch Linux
+```sh
+sudo apt-get install base-devel cmake
 cd build 
 cmake .. 
 make install
