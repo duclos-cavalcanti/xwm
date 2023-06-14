@@ -1,4 +1,4 @@
-function (Find_Xephyr)
+function (find_xephyr)
     execute_process(COMMAND whereis Xephyr 
                     OUTPUT_QUIET
                     RESULT_VARIABLE RUNCODE)
