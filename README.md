@@ -7,14 +7,16 @@
 
 Toy project to understand the X protocol as well as develop a working window-manager 
 built upon it. The goal is to have a low-resource tiling window manager that can attend my needs 
-in a minimal and configurable manner. Projected features are: 
+in a minimal and configurable manner. 
 
-- [ ] Manual Vertical and Horizontal Tiling 
+Projected features are: 
+
+- [ ] Manual Vertical/Horizontal Tiling 
 - [ ] Tiling, Stacked, Mono, Full-screen and Floating Layouts
 - [ ] Rules on window creation through regex
 - [ ] Keyboard Modes
 - [ ] Configuration done through an *rc-file* (lua?)
-- [ ] Status-bar
+- [ ] Built-in Status-bar
 
 ## Installation
 #### Ubuntu/Debian
@@ -37,7 +39,7 @@ make install
 
 #### Ubuntu/Debian
 ```
-sudo apt-get install build-essential cmake libx11-dev xserver-xephyr xinit x11-apps xterm
+sudo apt-get install check build-essential cmake libx11-dev xserver-xephyr xinit x11-apps xterm
 ```
 
 #### Arch Linux
