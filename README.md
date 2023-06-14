@@ -3,13 +3,25 @@
   simple x window manager
 </p>
 
-![X-Protocol](.github/assets/xwm.png)
+<!-- ![X-Protocol](.github/assets/xwm.png) -->
 
-Toy X-Window Manager to understand the X protocol.
+Toy project to understand the X protocol as well as develop a working window-manager 
+built upon it. The goal is to have a low-resource tiling window manager that can attend my needs 
+in a minimal and configurable manner. Projected features are: 
+
+- [ ] Manual Vertical and Horizontal Tiling 
+- [ ] Tiling, Stacked, Mono, Full-screen and Floating Layouts
+- [ ] Rules on window creation through regex
+- [ ] Keyboard Modes
+- [ ] Configuration done through an *rc-file* (lua?)
+- [ ] Status-bar
 
 ## Installation
-```
-TODO
+```sh
+sudo apt-get install build-essential cmake
+cd build 
+cmake .. 
+make install
 ```
 
 ## Development
@@ -24,7 +36,7 @@ sudo apt-get install build-essential cmake libx11-dev xserver-xephyr xinit x11-a
 sudo pacman -S base-devel cmake libx11 xorg-server-xephyr xorg-xinit xorg-xclock xorg-xeyes xterm
 ```
 
-## Usage
+## Targets
 Build: 
 ```sh 
 cd build 
@@ -32,13 +44,13 @@ cmake ..
 make
 ```
 
-Debug:
+Debug (*development*):
 ```sh
 # not ready yet
 make debug
 ```
 
-Run:
+Run (*development*):
 ```sh
 # the wm is ran through the Xephyr-Server
 make run
