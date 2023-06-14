@@ -44,7 +44,7 @@ sudo apt-get install check build-essential cmake libx11-dev xserver-xephyr xinit
 
 #### Arch Linux
 ```
-sudo pacman -S base-devel cmake libx11 xorg-server-xephyr xorg-xinit xorg-xclock xorg-xeyes xterm
+sudo pacman -S check base-devel cmake libx11 xorg-server-xephyr xorg-xinit xorg-xclock xorg-xeyes xterm
 ```
 
 ## Targets
