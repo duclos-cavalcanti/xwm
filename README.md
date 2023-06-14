@@ -25,8 +25,28 @@ sudo pacman -S base-devel cmake libx11 xorg-server-xephyr xorg-xinit xorg-xclock
 ```
 
 ## Usage
+Build: 
+```sh 
+cd build 
+cmake ..
+make
 ```
-TODO
+
+Debug:
+```sh
+# not ready yet
+make debug
+```
+
+Run:
+```sh
+# the wm is ran through the Xephyr-Server
+make run
+```
+
+Install:
+```sh
+make install
 ```
 
 ## License
