@@ -40,7 +40,9 @@ set(PROJECT_INCLUDES
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 target_link_libraries(${PROJECT_NAME} "X11")
 
+install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/bin/)
 
+# clean target
 set_property(DIRECTORY PROPERTY ADDITIONAL_CLEAN_FILES
     "${PROJECT_SOURCE_DIR}/build/CMakeFiles"
     "${PROJECT_SOURCE_DIR}/build/CMakeCache.txt"
@@ -50,6 +52,7 @@ set_property(DIRECTORY PROPERTY ADDITIONAL_CLEAN_FILES
     "${PROJECT_SOURCE_DIR}/build/compile_commands.json"
 )
 
+# debug target
 add_custom_target("debug"
     COMMENT "Debugging with GDB"
     DEPENDS ${PROJECT_NAME}
@@ -57,6 +60,13 @@ add_custom_target("debug"
     COMMAND gdb -tui bin/${PROJECT_NAME}
 )
 
+# uninstall target
+add_custom_target("uninstall"
+    COMMENT "Debugging with GDB"
+    DEPENDS ${PROJECT_NAME}
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+    COMMAND rm -f /usr/local/bin/${PROJECT_NAME}
+)
 
 Find_Xephyr()
 if(${XEPHYR_FOUND})
@@ -68,5 +78,5 @@ if(${XEPHYR_FOUND})
         COMMAND xinit  ./xinitrc -- Xephyr :100 -ac -screen 800x600 -host-cursor
     )
 else()
-    message(FATAL ERROR "Xephyr/Xephyr-Server is not found and must be installed to run the wm!")
+    message(FATAL ERROR "Xephyr/Xephyr-Server is not installed and is needed to test the wm!")
 endif()
