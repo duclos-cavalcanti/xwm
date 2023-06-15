@@ -6,12 +6,11 @@
 #include "wm.h"
 #include "utils.h"
 
-#define MAX_ERROR_TEXT_LENGTH 1024
-
 static window_manager_t* wm = { 0 };
-static char err[MAX_ERROR_TEXT_LENGTH] = { 0 };
 
 int xerror(Display* d, XErrorEvent* e) {
+    static char err[500] = { 0 };
+
     XGetErrorText(d, e->error_code, err, sizeof(err));
     printf("Received X Error:\n"
            "\tRequest: %d\n"
@@ -44,22 +43,15 @@ int start() {
 int run() {
     XSetErrorHandler(&xerror);
 
+    static void (*events[LASTEvent])(window_manager_t* wm, XEvent *e) = {
+        [CreateNotify]     = create_notify,
+        [ConfigureRequest] = configure_request,
+    };
+
     while(1 && wm->running) {
         XEvent e;
         XNextEvent(wm->dpy, &e);
-        switch (e.type){
-            case CreateNotify:
-                create_notify(wm, &e);
-                break;
-
-            case ConfigureRequest:
-                configure_request(wm, &e);
-                break;
-
-            default: 
-                break;
-
-        }
+        if (events[e.type]) events[e.type](wm, &e);
     }
 
     return EXIT_SUCCESS;
