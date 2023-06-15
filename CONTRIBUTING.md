@@ -21,13 +21,3 @@ All submissions, including submissions by project members, require review. I
 use GitHub pull requests for this purpose. Consult [GitHub Help](https://help.github.com/articles/about-pull-requests/) 
 for more information on using pull requests.
 
-## Workflow
-- [Xephyr](https://en.wikipedia.org/wiki/Xephyr#Features)
-- [Check](https://libcheck.github.io/check/doc/check_html/check_3.html)
-
-## Documentation
-- [X New Developer's Guide](https://x.org/wiki/guide/concepts/)
-- [X Window System](https://x.org/releases/current/doc/libX11/libX11/libX11.html#Overview_of_the_X_Window_System)
-- [X11 Protocol](https://x.org/releases/current/doc/xproto/x11protocol.html#Protocol_Formats)
-- [XCB](https://xcb.freedesktop.org/tutorial/)
-
