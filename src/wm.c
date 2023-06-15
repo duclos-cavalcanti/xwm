@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include "main.h"
+#include "wm.h"
+#include "client.h"
 
 // when a window is created, apply default settings
 void create_notify(window_manager_t* wm, const XEvent* e) {
@@ -9,6 +10,18 @@ void create_notify(window_manager_t* wm, const XEvent* e) {
 // when a window is destroyed, update internal state
 void destroy_notify(window_manager_t* wm, const XEvent* e) {
 
+}
+
+// when a window requests to be mapped/shown on the screen, 
+void map_request(window_manager_t* wm, const XEvent* e) {
+    client_add(wm->c_list, e->xmaprequest.window);
+    client_get_geometry(wm, wm->c_list->head, &(Status){0});
+
+    client_place(wm, wm->c_list->head);
+    client_position(wm, wm->c_list->head);
+    client_map(wm, wm->c_list->head);
+
+    client_set_focus(wm, wm->c_list->head);
 }
 
 // when a window is mapped/shown from the screen, 

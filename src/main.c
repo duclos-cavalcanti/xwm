@@ -43,7 +43,7 @@ int start() {
 int run() {
     XSetErrorHandler(&xerror);
 
-    static void (*events[LASTEvent])(window_manager_t* wm, XEvent *e) = {
+    static void (*events[LASTEvent])(window_manager_t* wm, const XEvent *e) = {
         [CreateNotify]     = create_notify,
         [ConfigureRequest] = configure_request,
     };
