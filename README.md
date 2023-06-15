@@ -5,7 +5,7 @@
 
 <!-- ![X-Protocol](.github/assets/xwm.png) -->
 
-Toy project to understand the X protocol as well as develop a working window-manager 
+Project to understand the X protocol as well as develop a working window-manager 
 built upon it. The goal is to have a low-resource tiling window manager that can attend my needs 
 in a minimal and configurable manner. 
 
@@ -88,12 +88,6 @@ Please follow the instructions in the contributions guide at [CONTRIBUTING.md](C
 - [sowm](https://github.com/dylanaraps/sowm)
 - [dwm](https://dwm.suckless.org/tutorial/)
 - [aphelia](https://github.com/vardy/aphelia)
-
-## Documentation
-- [X New Developer's Guide](https://x.org/wiki/guide/concepts/)
-- [X Window System](https://x.org/releases/current/doc/libX11/libX11/libX11.html#Overview_of_the_X_Window_System)
-- [X11 Protocol](https://x.org/releases/current/doc/xproto/x11protocol.html#Protocol_Formats)
-- [XCB](https://xcb.freedesktop.org/tutorial/)
 
 ## Donations
 I have a ko-fi and a buy-me-a-coffee account, so if you found this repo useful and would like to show your appreciation, feel free to do so!
