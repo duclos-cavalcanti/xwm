@@ -85,9 +85,9 @@ This project is released under the GNU General Public License 3.0. See [LICENSE]
 Please follow the instructions in the contributions guide at [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Thanks
+- [monsterwm](https://github.com/c00kiemon5ter/monsterwm)
 - [sowm](https://github.com/dylanaraps/sowm)
 - [dwm](https://dwm.suckless.org/tutorial/)
-- [aphelia](https://github.com/vardy/aphelia)
 
 ## Donations
 I have a ko-fi and a buy-me-a-coffee account, so if you found this repo useful and would like to show your appreciation, feel free to do so!
