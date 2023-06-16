@@ -3,8 +3,8 @@
 
 #include "main.h"
 
-void create_notify(window_manager_t* wm, const XEvent* e);
-void configure_request(window_manager_t* wm, const XEvent* e);
-void map_request(window_manager_t* wm, const XEvent* e);
+void wm_kill_win();
+void wm_run();
 
 #endif /* __WM__H */
+

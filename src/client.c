@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "client.h"
 
-void client_add(client_list_t *c_list, Window win) {
+void client_add(client_list_t *clients, Window win) {
     client_t* c = (client_t*) calloc(1, sizeof(client_t));
 
     if (! (c) ) {
@@ -17,16 +17,16 @@ void client_add(client_list_t *c_list, Window win) {
     c->is_urgent = false;
     c->is_focused = false;
 
-    if (c_list->head) {
-        client_t* tmp = c_list->head;
-        c_list->head = c;
+    if (clients->list) {
+        client_t* tmp = clients->list;
+        clients->list = c;
         c->next = tmp;
         tmp->prev = c;
     } else {
-        c_list->head = c;
+        clients->list = c;
     }
 
-    c_list->size++;
+    clients->size++;
 }
 
 void client_get_geometry(window_manager_t *wm, client_t *c, Status *st) {
@@ -42,12 +42,7 @@ void client_get_geometry(window_manager_t *wm, client_t *c, Status *st) {
 }
 
 void client_place(window_manager_t* wm, client_t* c) {
-    if (wm->c_list->size == 1) {
-        c->w = wm->width;
-        c->h = wm->height;
-    } else {
 
-    }
 }
 
 void client_position(window_manager_t* wm, client_t* c) {
@@ -67,5 +62,5 @@ void client_map(window_manager_t* wm, client_t* c) {
 void client_set_focus(window_manager_t*wm, client_t* c) {
     XSetInputFocus(wm->dpy, c->win, RevertToParent, CurrentTime);
     c->is_focused = true;
-    wm->cur = c;
+    wm->clients->cur = c;
 }

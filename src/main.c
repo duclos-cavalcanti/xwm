@@ -3,10 +3,10 @@
 #include <stdbool.h>
 
 #include "main.h"
-#include "wm.h"
+#include "events.h"
 #include "utils.h"
 
-static window_manager_t* wm = { 0 };
+window_manager_t* wm = { 0 };
 
 int xerror(Display* d, XErrorEvent* e) {
     static char err[500] = { 0 };
@@ -43,15 +43,19 @@ int start() {
 int run() {
     XSetErrorHandler(&xerror);
 
-    static void (*events[LASTEvent])(window_manager_t* wm, const XEvent *e) = {
+    static void (*event_table[LASTEvent])(const XEvent *e) = {
         [CreateNotify]     = create_notify,
         [ConfigureRequest] = configure_request,
+        [KeyPress] = key_press,
     };
 
     while(1 && wm->running) {
         XEvent e;
         XNextEvent(wm->dpy, &e);
-        if (events[e.type]) events[e.type](wm, &e);
+        if (event_table[e.type]) {
+            event_table[e.type](wm, &e);
+            XSync(wm->dpy, False);
+        }
     }
 
     return EXIT_SUCCESS;
