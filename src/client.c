@@ -2,7 +2,11 @@
 #include <stdlib.h>
 #include "client.h"
 
-void add_client(client_list_t *clients, Window win) {
+void add_frame() {
+
+}
+
+void add_client(client_t *list, Window win) {
     client_t* c = (client_t*) calloc(1, sizeof(client_t));
 
     if (! (c) ) {
@@ -17,13 +21,13 @@ void add_client(client_list_t *clients, Window win) {
     c->is_urgent = false;
     c->is_focused = false;
 
-    if (clients->list) {
-        client_t* tmp = clients->list;
-        clients->list = c;
+    if (list) {
+        client_t* tmp = list;
+        list = c;
         c->next = tmp;
         tmp->prev = c;
     } else {
-        clients->list = c;
+        list = c;
     }
 
     clients->size++;
@@ -62,5 +66,4 @@ void map_client(window_manager_t* wm, client_t* c) {
 void focus_client(window_manager_t*wm, client_t* c) {
     XSetInputFocus(wm->dpy, c->win, RevertToParent, CurrentTime);
     c->is_focused = true;
-    wm->clients->cur = c;
 }

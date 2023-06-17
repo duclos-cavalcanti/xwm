@@ -14,7 +14,9 @@ void destroy_notify(const XEvent* e) {
 
 // when a window requests to be mapped/shown on the screen, 
 void map_request(const XEvent* e) {
-    add_client(wm->clients, e->xmaprequest.window);
+    workspace_t* ws = CUR_WS(wm);
+
+    add_client(, e->xmaprequest.window);
     get_client_geometry(wm, wm->clients->list, &(Status){0});
 
     move_client(wm, wm->clients->list);

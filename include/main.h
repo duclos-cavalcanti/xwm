@@ -4,6 +4,8 @@
 #include <X11/Xlib.h>
 #include <stdbool.h>
 
+#define CUR_WS(wm) &(wm->dsk.ws[wm->dsk.cur])
+
 typedef union arg {
   const char** command; 
   const int i; 
@@ -26,12 +28,15 @@ typedef struct client {
 } client_t;
 
 typedef struct frame {
-    client_t* list;
+    struct frame *next;
+    client_t *list;
+    client_t *cur;
     int size;
 } frame_t;
 
 typedef struct workspace {
-    frame_t* list;
+    frame_t *list;
+    frame_t *cur;
 } workspace_t;
 
 typedef struct desktop {
