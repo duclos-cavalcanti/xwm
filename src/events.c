@@ -14,14 +14,12 @@ void destroy_notify(const XEvent* e) {
 
 // when a window requests to be mapped/shown on the screen, 
 void map_request(const XEvent* e) {
-    client_add(wm->clients, e->xmaprequest.window);
-    client_get_geometry(wm, wm->clients->list, &(Status){0});
+    add_client(wm->clients, e->xmaprequest.window);
+    get_client_geometry(wm, wm->clients->list, &(Status){0});
 
-    client_place(wm, wm->clients->list);
-    client_position(wm, wm->clients->list);
-    client_map(wm, wm->clients->list);
-
-    client_set_focus(wm, wm->clients->list);
+    move_client(wm, wm->clients->list);
+    map_client(wm, wm->clients->list);
+    focus_client(wm, wm->clients->list);
 }
 
 // when a window is mapped/shown from the screen, 

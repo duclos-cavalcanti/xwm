@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "client.h"
 
-void client_add(client_list_t *clients, Window win) {
+void add_client(client_list_t *clients, Window win) {
     client_t* c = (client_t*) calloc(1, sizeof(client_t));
 
     if (! (c) ) {
@@ -29,7 +29,7 @@ void client_add(client_list_t *clients, Window win) {
     clients->size++;
 }
 
-void client_get_geometry(window_manager_t *wm, client_t *c, Status *st) {
+void get_client_geometry(window_manager_t *wm, client_t *c, Status *st) {
     *(st) = XGetGeometry(wm->dpy, 
                          c->win,
                          &(Window){0},
@@ -45,7 +45,7 @@ void client_place(window_manager_t* wm, client_t* c) {
 
 }
 
-void client_position(window_manager_t* wm, client_t* c) {
+void move_client(window_manager_t* wm, client_t* c) {
     XMoveResizeWindow(wm->dpy, 
                       c->win, 
                       c->x, 
@@ -54,12 +54,12 @@ void client_position(window_manager_t* wm, client_t* c) {
                       c->h);
 }
 
-void client_map(window_manager_t* wm, client_t* c) {
+void map_client(window_manager_t* wm, client_t* c) {
     XMapWindow(wm->dpy, 
                c->win);
 }
 
-void client_set_focus(window_manager_t*wm, client_t* c) {
+void focus_client(window_manager_t*wm, client_t* c) {
     XSetInputFocus(wm->dpy, c->win, RevertToParent, CurrentTime);
     c->is_focused = true;
     wm->clients->cur = c;

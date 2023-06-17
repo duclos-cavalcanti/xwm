@@ -10,8 +10,8 @@
 const char term[] = "xterm";
 
 static key_event_t key_bindings[] = {
-  { SUPER, XK_w, wm_kill_win, {0} },
-  { SUPER, XK_Return, wm_run, {0} },
+  { SUPER, XK_w, kill_win, {0} },
+  { SUPER, XK_Return, run, {0} },
 };
 
 #endif /* __CONFIG__H */

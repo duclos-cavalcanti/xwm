@@ -3,8 +3,8 @@
 
 #include "main.h"
 
-void wm_kill_win();
-void wm_run();
+void kill_win();
+void run();
 
 #endif /* __WM__H */
 
