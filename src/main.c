@@ -31,7 +31,6 @@ int start() {
         return EXIT_FAILURE;
     }
 
-    wm->screen      = DefaultScreen(wm->dpy);
     wm->root        = DefaultRootWindow(wm->dpy);
     wm->width       = XDisplayWidth(wm->dpy, DefaultScreen(wm->dpy));
     wm->height      = XDisplayHeight(wm->dpy, DefaultScreen(wm->dpy));
@@ -53,7 +52,7 @@ int run() {
         XEvent e;
         XNextEvent(wm->dpy, &e);
         if (event_table[e.type]) {
-            event_table[e.type](wm, &e);
+            event_table[e.type](&e);
             XSync(wm->dpy, False);
         }
     }
