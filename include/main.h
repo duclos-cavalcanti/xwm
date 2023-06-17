@@ -25,17 +25,24 @@ typedef struct client {
     bool is_floating, is_fullscreen, is_focused, is_urgent, is_sticky;
 } client_t;
 
-typedef struct client_list {
+typedef struct frame {
     client_t* list;
-    client_t* cur;
     int size;
-} client_list_t;
+} frame_t;
+
+typedef struct workspace {
+    frame_t* list;
+} workspace_t;
+
+typedef struct desktop {
+    workspace_t ws[9];
+    int cur;
+} desktop_t;
 
 typedef struct window_manager {
     Display* dpy;
     Window root;
-    client_list_t *clients;
-    int screen;
+    desktop_t dsk;
     int width, height;
     bool running;
 } window_manager_t;
