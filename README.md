@@ -85,8 +85,10 @@ This project is released under the GNU General Public License 3.0. See [LICENSE]
 Please follow the instructions in the contributions guide at [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Thanks
-- [monsterwm](https://github.com/c00kiemon5ter/monsterwm)
 - [sowm](https://github.com/dylanaraps/sowm)
+- [monsterwm](https://github.com/c00kiemon5ter/monsterwm)
+- [bspwm](https://github.com/baskerville/bspwm)
+- [herbstluftwm](https://github.com/herbstluftwm/herbstluftwm)
 - [dwm](https://dwm.suckless.org/tutorial/)
 
 ## Donations
