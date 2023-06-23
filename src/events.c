@@ -1,6 +1,12 @@
 #include <stdio.h>
+
+#include <X11/XF86keysym.h>
+#include <X11/keysym.h>
+#include <X11/XKBlib.h>
+
 #include "events.h"
 #include "client.h"
+#include "config.def.h"
 
 // when a window is created, apply default settings
 void create_notify(const XEvent* e) {
@@ -14,14 +20,16 @@ void destroy_notify(const XEvent* e) {
 
 // when a window requests to be mapped/shown on the screen, 
 void map_request(const XEvent* e) {
-    workspace_t* ws = CUR_WS(wm);
+    workspace_t *ws = &(wm->dsk.ws[wm->dsk.cur]);
+    frame_t *fr = ws->cur;
 
-    add_client(, e->xmaprequest.window);
-    get_client_geometry(wm, wm->clients->list, &(Status){0});
+    add_client(fr, e->xmaprequest.window);
 
-    move_client(wm, wm->clients->list);
-    map_client(wm, wm->clients->list);
-    focus_client(wm, wm->clients->list);
+    GET_GEOMETRY(fr->cur);
+
+    move_client(fr->cur);
+    map_client(fr->cur);
+    focus_client(fr->cur);
 }
 
 // when a window is mapped/shown from the screen, 
@@ -40,15 +48,7 @@ void unmap_notify(const XEvent* e) {
 // update internal representation of window and adjust layout if necessary
 void configure_request(const XEvent* e) {
     XWindowChanges c;
-    XConfigureRequestEvent *ev = &e->xconfigurerequest;
-
-    c.x = ev->x;
-    c.y = ev->y;
-    c.width = ev->width;
-    c.height = ev->height;
-    c.border_width = ev->border_width;
-    c.sibling = ev->above;
-    c.stack_mode = ev->detail;
+    XConfigureRequestEvent *ev = &(e->xconfigurerequest);
 
     XConfigureWindow(wm->dpy, 0, 0, &c); return;
 }
@@ -85,6 +85,14 @@ void button_release(const XEvent* e) {
 // keys are pressed or released within a window
 // handle shortcuts, hot-keys and modes
 void key_press(const XEvent* e) {
+    KeySym keysym = XkbKeycodeToKeysym(wm->dpy, e->xkey.keycode, 0, 0);
+    for (unsigned int i = 0; i < sizeof(key_bindings)/sizeof(*key_bindings); i++) {
+        key_event_t ke = key_bindings[i];
+        if( ke.keysym == keysym && 
+            MOD_CLEAN(ke.mod) == MOD_CLEAN(e->xkey.state)) {
+            ke.function(&ke.arg);
+        }
+    }
 
 }
 

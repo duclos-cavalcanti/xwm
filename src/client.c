@@ -2,12 +2,13 @@
 #include <stdlib.h>
 #include "client.h"
 
-void add_frame() {
+void add_frame(frame_t* list) {
 
 }
 
-void add_client(client_t *list, Window win) {
+void add_client(frame_t *fr, Window win) {
     client_t* c = (client_t*) calloc(1, sizeof(client_t));
+    client_t* list = fr->list;
 
     if (! (c) ) {
         fprintf(stderr, "Failed to allocate memory for client_t.\n");
@@ -15,6 +16,9 @@ void add_client(client_t *list, Window win) {
     }
 
     c->win = win;
+    c->next= NULL;
+    c->prev= NULL;
+
     c->is_sticky = false;
     c->is_floating = false;
     c->is_fullscreen = false;
@@ -30,26 +34,11 @@ void add_client(client_t *list, Window win) {
         list = c;
     }
 
-    clients->size++;
+    fr->size++;
+    fr->cur = list;
 }
 
-void get_client_geometry(window_manager_t *wm, client_t *c, Status *st) {
-    *(st) = XGetGeometry(wm->dpy, 
-                         c->win,
-                         &(Window){0},
-                         &c->x, 
-                         &c->y, 
-                         &c->w, 
-                         &c->h,
-                         &(unsigned int){0},
-                         &(unsigned int){0});
-}
-
-void client_place(window_manager_t* wm, client_t* c) {
-
-}
-
-void move_client(window_manager_t* wm, client_t* c) {
+void move_client(client_t* c) {
     XMoveResizeWindow(wm->dpy, 
                       c->win, 
                       c->x, 
@@ -58,12 +47,12 @@ void move_client(window_manager_t* wm, client_t* c) {
                       c->h);
 }
 
-void map_client(window_manager_t* wm, client_t* c) {
+void map_client(client_t* c) {
     XMapWindow(wm->dpy, 
                c->win);
 }
 
-void focus_client(window_manager_t*wm, client_t* c) {
+void focus_client(client_t* c) {
     XSetInputFocus(wm->dpy, c->win, RevertToParent, CurrentTime);
     c->is_focused = true;
 }
