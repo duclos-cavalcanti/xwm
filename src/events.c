@@ -20,12 +20,16 @@ void destroy_notify(const XEvent* e) {
 
 // when a window requests to be mapped/shown on the screen, 
 void map_request(const XEvent* e) {
-    workspace_t *ws = &(wm->dsk.ws[wm->dsk.cur]);
+    workspace_t *ws = &(wm->desktop.ws[wm->desktop.cur]);
     frame_t *fr = ws->cur;
+
+    if (! (fr->list) ) {
+
+    }
 
     add_client(fr, e->xmaprequest.window);
 
-    GET_GEOMETRY(fr->cur);
+    GET_GEOMETRY(fr->list);
 
     move_client(fr->cur);
     map_client(fr->cur);
@@ -88,10 +92,8 @@ void key_press(const XEvent* e) {
     KeySym keysym = XkbKeycodeToKeysym(wm->dpy, e->xkey.keycode, 0, 0);
     for (unsigned int i = 0; i < sizeof(key_bindings)/sizeof(*key_bindings); i++) {
         key_event_t ke = key_bindings[i];
-        if( ke.keysym == keysym && 
-            MOD_CLEAN(ke.mod) == MOD_CLEAN(e->xkey.state)) {
-            ke.function(&ke.arg);
-        }
+        if( ke.keysym == keysym && MOD_CLEAN(ke.mod) == MOD_CLEAN(e->xkey.state))
+            ke.callback(&ke.arg);
     }
 
 }

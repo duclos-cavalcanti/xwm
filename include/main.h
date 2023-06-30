@@ -5,19 +5,22 @@
 #include <stdbool.h>
 
 // Taken from DWM. Many thanks. https://git.suckless.org/dwm
-#define MOD_CLEAN(mask) (mask & ~(numlock|LockMask) & \
+#define MOD_CLEAN(mask) (mask & ~(LockMask) & \
         (ShiftMask|ControlMask|Mod1Mask|Mod2Mask|Mod3Mask|Mod4Mask|Mod5Mask))
 
+
 typedef union arg {
-  const char** command; 
+  const char** string; 
   const int i; 
   const void *data;
 } arg_t;
 
+typedef void(*callback_t)(const arg_t *arg);
+
 typedef struct key_event {
   unsigned int mod; 
   KeySym keysym;
-  void(*function)(const arg_t *arg);
+  callback_t callback;
   const arg_t arg;
 } key_event_t;
 
@@ -32,13 +35,12 @@ typedef struct client {
 typedef struct frame {
     struct frame *next;
     client_t *list;
-    client_t *cur;
-    int size;
+    int size, cur;
 } frame_t;
 
 typedef struct workspace {
     frame_t *list;
-    frame_t *cur;
+    int size, cur;
 } workspace_t;
 
 typedef struct desktop {
@@ -49,7 +51,7 @@ typedef struct desktop {
 typedef struct window_manager {
     Display* dpy;
     Window root;
-    desktop_t dsk;
+    desktop_t desktop;
     int width, height;
     bool running;
 } window_manager_t;

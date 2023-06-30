@@ -11,7 +11,7 @@ const char term[] = "xterm";
 
 static key_event_t key_bindings[] = {
   { SUPER, XK_w, kill_win, {0} },
-  { SUPER, XK_Return, run, {0} },
+  { SUPER, XK_Return, command, {.string = term} },
 };
 
 #endif /* __CONFIG__H */
