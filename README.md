@@ -9,7 +9,7 @@ Project to understand the X protocol as well as develop a working window-manager
 built upon it. The goal is to have a low-resource tiling window manager that can attend my needs 
 in a minimal and configurable manner. 
 
-Projected features are: 
+Projected features are:
 
 - [ ] Manual Vertical/Horizontal Tiling 
 - [ ] Tiling, Stacked, Mono, Full-screen and Floating Layouts
