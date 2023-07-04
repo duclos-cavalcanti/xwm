@@ -94,12 +94,12 @@ if (CHECK_LIBRARY)
     link_directories(${CHECK_LIBRARY_DIRS})
 
     add_executable(test_${PROJECT_NAME} ${TEST_PROJECT_SOURCES})
-    target_link_libraries(test_${PROJECT_NAME} "X11" ${CHECK_LIBRARY})
+    target_link_libraries(test_${PROJECT_NAME} "X11" ${CHECK_LIBRARY} "m" "subunit")
 
     add_custom_target(test
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/bin/TestRunner
+        COMMAND ./bin/test_${PROJECT_NAME}
         DEPENDS test_${PROJECT_NAME}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     )
 else()
     message(FATAL_ERROR "Check library not found. Please install Check.")
