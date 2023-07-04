@@ -33,12 +33,13 @@ set(PROJECT_SOURCES
     ${LIB_SOURCES}
 )
 
-include_directories(include)
 
 set(PROJECT_INCLUDES
     ${PROJECT_SOURCE_DIR}/include/
     ${PROJECT_SOURCE_DIR}/lib/include
 )
+
+include_directories(${PROJECT_INCLUDES})
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 target_link_libraries(${PROJECT_NAME} "X11")
@@ -73,9 +74,26 @@ add_custom_target("uninstall"
 
 if (CHECK_LIBRARY)
     message(STATUS "Check executable found")
-    include_directories(${CHECK_INCLUDE_DIRS})
+
+    file(GLOB TEST_SOURCES "test/src/*.c")
+    list(REMOVE_ITEM SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/main.c)
+
+    set(TEST_PROJECT_SOURCES
+        ${TEST_SOURCES}
+        ${SOURCES}
+        ${LIB_SOURCES}
+    )
+
+    set(TEST_PROJECT_INCLUDES
+        ${PROJECT_SOURCE_DIR}/include/
+        ${PROJECT_SOURCE_DIR}/test/include
+        ${CHECK_INCLUDE_DIRS}
+    )
+
+    include_directories(${TEST_PROJECT_INCLUDES})
     link_directories(${CHECK_LIBRARY_DIRS})
-    add_executable(test_${PROJECT_NAME} ${PROJECT_SOURCES})
+
+    add_executable(test_${PROJECT_NAME} ${TEST_PROJECT_SOURCES})
     target_link_libraries(test_${PROJECT_NAME} "X11" ${CHECK_LIBRARY})
 
     add_custom_target(test
@@ -88,7 +106,6 @@ else()
 endif()
 
 if(${XEPHYR_FOUND})
-    message(STATUS "Xephyr executable found")
     add_custom_target("run"
         COMMENT "Running Program"
         DEPENDS ${PROJECT_NAME}
